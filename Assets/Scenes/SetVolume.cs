@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SoundSlider : MonoBehaviour
+public class SetVolume : MonoBehaviour
 {
-    public AudioMixer mixer;
+    private AudioMixer mixer;
+    private AudioSource audioSource;
+    float A_sliderValue;
+    private GameManager gameManager;
+    GameObject BGAudio = GameObject.Find("BGAudio");
 
-    public void SetLevel (float sliderValue)
+    public void Start ()
     {
-        //Mathf.Log10 for converting .0001 to one slider value and turn it to a value between -80 and 0 on a logaritmic scale because
-        //because decibal convertion
-        mixer.SetFloat(/*exposed music value to scripting name ->*/"", Mathf.Log10(sliderValue * 20));
+        audioSource = GetComponent<AudioSource>();
+    }
+    
+    //public void SetLevel (float sliderValue)
+    void OnGUI()
+    {
+        //Use Mathf.Log10(sliderValue * 20) if need decibal convertion
+        //mixer.SetFloat(/*volume name*/ "audioSource.volume", sliderValue);
+        
+        A_sliderValue = GUI.HorizontalSlider(new Rect(25, 25, 200, 60), A_sliderValue, 0.0F, 1.0F);
+        //BGAudio.volume = A_sliderValue;
+
+        BGAudio.GetCopmonent<SetVolume>().ChangeVolume(A_sliderValue);
     }
 }
-

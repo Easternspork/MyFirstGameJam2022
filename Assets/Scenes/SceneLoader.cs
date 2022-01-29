@@ -22,6 +22,6 @@ public class SceneLoader : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        //Add debug log if tried to quit in unity editor
+        //Debug log quit
     }
 }

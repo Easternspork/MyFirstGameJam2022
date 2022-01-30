@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -9,6 +10,15 @@ public class HealthBar : MonoBehaviour
     public float currentHealth;
     private float maxHealth = 100f;
     private LevelManager levelManager;
+
+
+
+    public void GameOver()
+    {
+        Application.Quit();
+    }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,5 +32,12 @@ public class HealthBar : MonoBehaviour
     {
         currentHealth = levelManager.health;
         healthBar.fillAmount = currentHealth / maxHealth;
+        if (currentHealth <= 0)
+        {
+            GameOver();
+            SceneLoader.LoadGameOver();
+
+        }
+
     }
 }
